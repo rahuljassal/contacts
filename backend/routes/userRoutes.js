@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
+const {
+  registerUser,
+  loginUsers,
+  getCurrentUser,
+  getUsers,
+} = require("../controllers/userControllers");
+const tokenHandler = require("../middlewares/tokenHandler");
+router.get("/", getUsers);
+router.post("/register", registerUser);
 
-router.post("/register", (req, res) => {
-  res.json({ message: "user registered successfully" });
-});
+router.post("/login", loginUsers);
+router.get("/current", tokenHandler, getCurrentUser);
 
-router.post("/login", (req, res) => {
-  res.json({ message: "user logged in successfully" });
-});
-router.get("/current", (req, res) => {
-  res.json({ message: "current user info " });
-});
 module.exports = router;
